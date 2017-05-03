@@ -16,7 +16,7 @@ class SearchBar extends Component {
 
   onInputChange(item) {
     this.setState({ term: item.label });
-    this.props.fetchWeather(item.value);
+    this.props.fetchWeather(item.value._id);
   }
 
   getOptions() {

@@ -1,16 +1,25 @@
 // Put here your Redux actions
 import { OW_APIKEY, OW_BASEURL } from '../data/config';
-import axios from 'axios';
+import { CALL_API, getJSON } from 'redux-api-middleware';
 
-export const FETCH_WEATHER = 'FETCH_WEATHER';
+export const FETCH_WEATHER = 'SUCCESS';
 
-export function fetchWeather(city) {
-
-  const url = `${OW_BASEURL}/weather?id=${city._id}&appid=${OW_APIKEY}`;
-  const request = axios.get(url);
-
+export function fetchWeather(cityID) {
   return {
-    type: FETCH_WEATHER,
-    payload: request
+    [CALL_API]: {
+      endpoint: `${OW_BASEURL}/weather?id=${cityID}&appid=${OW_APIKEY}`,
+      method: 'GET',
+      types: [
+        {
+          type: FETCH_WEATHER,
+          payload: (action, state, res) => {
+            return getJSON(res);
+          }
+        },
+        'REQUEST',
+        'FAILURE'
+      ],
+      headers: { 'Content-Type': 'application/json' }
+    }
   };
-};
+}

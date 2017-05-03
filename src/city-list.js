@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import bindActionCreators from 'redux';
-import { fetchWeather } from './redux/actions';
 
 class CityList extends Component {
   constructor(props) {
@@ -46,8 +44,4 @@ function mapStateToProps({ weather }) {
   return { weather };
 }
 
-function mapDIspatchToProps(dispatch) {
-  return bindActionCreators({ fetchWeather }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDIspatchToProps)(CityList);
+export default connect(mapStateToProps)(CityList);
