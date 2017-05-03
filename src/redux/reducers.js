@@ -1,5 +1,8 @@
-// Put here your reducers
+import { combineReducers } from 'redux';
+import WeatherReducer from './reducer_cities';
 
-export default function reducer(state = {}, action) {
-  return state;
-}
+const rootReducer = combineReducers({
+  weather: WeatherReducer
+});
+
+export default rootReducer;
