@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { reloadWeather, removeCity } from './redux/actions';
 
 class CityList extends Component {
   constructor(props) {
@@ -19,11 +21,17 @@ class CityList extends Component {
               {item.name}
             </div>
             <div className="col-md-4">
-              {item.weather.description}
+              {item.weather[0].description}
             </div>
             <div className="col-md-4">
-              <span className="glyphicon glyphicon-remove"></span>
-              <span className="glyphicon glyphicon-repeat"></span>
+              <div className='col-md-5'></div>
+              <div className='col-md-1' onClick={() => this.props.removeCity(item.id)}>
+                <span className="glyphicon glyphicon-remove"></span>
+              </div>
+              <div className='col-md-1' onClick={() => this.props.reloadWeather(item.id)}>
+                <span className="glyphicon glyphicon-repeat"></span>
+              </div>
+              <div className='col-md-5'></div>
             </div>
           </div>
         </li>
@@ -44,4 +52,8 @@ function mapStateToProps({ weather }) {
   return { weather };
 }
 
-export default connect(mapStateToProps)(CityList);
+function mapDIspatchToProps(dispatch) {
+  return bindActionCreators({ reloadWeather , removeCity }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDIspatchToProps)(CityList);

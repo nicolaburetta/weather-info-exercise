@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-import { apiMiddleware } from 'redux-api-middleware';
+import promise from 'redux-promise';
 import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
 
@@ -11,7 +11,7 @@ import './index.css';
 import reducer from './redux/reducers';
 
 const logger = createLogger();
-const store = createStore(reducer, applyMiddleware(apiMiddleware, logger));
+const store = createStore(reducer, applyMiddleware(promise, logger));
 
 ReactDOM.render(
   <Provider store={store}>
